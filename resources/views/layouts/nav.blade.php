@@ -55,7 +55,7 @@
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 shadow-b-2xl">
             <div>
                 <a href="{{ route('home') }}">
-                    <img src="{{ asset('image/logosite.png') }}" class="w-24 h-15 cursor-pointer"/>
+                    <img src="{{ asset('image/logosite.png') }}" class="w-24 h-17 cursor-pointer"/>
                 </a> 
             </div>
             <!-- search  -->
@@ -89,7 +89,7 @@
                     @guest
                     <li>
                         <a href="#" type="button"
-                            class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">Home</a>
+                            class="text-gray-700 font-bold  font-serif focus:outline-none  text-sm px-6 py-2.5 text-center">Home</a>
 
                     </li>    
                     @endguest
@@ -148,13 +148,13 @@
                    <li>
                     @if (Route::has('register'))
                    <a href="{{ route('register') }}" type="button"
-                       class="text-bleuc md:bg-bleu font-serif hover:text-white hover:bg-bleuc  focus:outline-none  font-bold rounded-full text-sm px-5 py-2 text-center">Sign
+                       class="text-white md:bg-red-800 font-serif focus:outline-none  font-bold rounded-lg text-sm px-5 py-2 text-center">Sign
                        Up</a> @endif
                </li>
                <li>
                    <a href="{{ route('login') }}"
         type="button"
-        class="text-bleuc font-bold md:bg-bleu  hover:bg-bleuc hover:text-white font-serif  focus:outline-none   rounded-full text-sm px-6 py-2 text-center">
+        class="text-white font-bold md:bg-red-600 font-serif  focus:outline-none   rounded-lg text-sm px-6 py-2 text-center">
     Log
     In</a>
 
@@ -164,7 +164,7 @@
 @auth
     <li>
         <form method="POST" action="{{ route('logout') }}"
-            class="text-bleuc md:bg-bleu font-serif hover:text-white hover:bg-bleu focus:outline-none  font-bold rounded-full text-sm px-5 text-center">
+            class="text-white md:bg-red-600 font-serif focus:outline-none  font-bold rounded-full text-sm px-5 text-center">
             @csrf
 
             <x-dropdown-link :href="route('logout')"
