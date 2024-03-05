@@ -9,6 +9,7 @@ class Event extends Model
 {
     use HasFactory;
 
+protected $fillable=['title','description','image','date','location','category_id','user_id','nbr','price','mode'];
     public function resevations(){
         return $this->hasMany(Reservation::class);
         

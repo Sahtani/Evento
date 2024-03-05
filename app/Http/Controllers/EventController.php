@@ -32,7 +32,7 @@ class EventController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(EventRequest $request)
-    {
+    { 
         $eventData = $request->validated();
 
         if ($request->hasFile('image')) {
@@ -47,6 +47,7 @@ class EventController extends Controller
         $eventData['user_id'] = Auth::id();
 
         $event = Event::create($eventData);
+        return redirect()->route('organizator.userdash');
     }
 
 

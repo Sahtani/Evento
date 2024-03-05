@@ -20,37 +20,50 @@
                     <input type="file" id='uploadFile1' class="hidden" name='image' />
                     <p class="text-xs text-gray-400 mt-2">PNG, JPG SVG, WEBP, and GIF are Allowed.</p>
                 </label>
+                <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 <div class="grid sm:grid-cols-2 gap-6 items-center">
+                    <div>
+                        <x-text-input id="title" class="block  w-full" type="text" name="title" :value="old('title')"
+                            autofocus autocomplete="name" placeholder='Title' />
+                        <x-input-error :messages="$errors->get('title')" class="mt-2" />
 
-                    <x-text-input id="title" class="block  w-full" type="text" name="title" :value="old('title')"
-                        required autofocus autocomplete="name" placeholder='Title' />
-                    <x-input-error :messages="$errors->get('title')" class="mt-2" />
+                    </div>
+                    <div>
+                        <x-text-input id="date" class="block w-full" type="date" name="date" :value="old('date')"
+                            autofocus autocomplete="name" placeholder='Date' />
+                        <x-input-error :messages="$errors->get('date')" class="mt-2" />
 
-                    <x-text-input id="date" class="block w-full" type="date" name="date" :value="old('date')"
-                        required autofocus autocomplete="name" placeholder='Date' />
-                    <x-input-error :messages="$errors->get('date')" class="mt-2" />
+                    </div>
+                    <div>
+                        <x-text-input id="title" class="block  w-full" type="text" name="location" :value="old('location')"
+                            placeholder='Location' />
+                        <x-input-error :messages="$errors->get('location')" class="mt-2" />
 
-                    <x-text-input id="title" class="block  w-full" type="text" name="location" :value="old('location')"
-                        required placeholder='Location' />
-                    <x-input-error :messages="$errors->get('location')" class="mt-2" />
+                    </div>
+                    <div>
+                        <x-text-input id="nbr" class="block w-full" type="number" name="nbr"
+                            :value="old('nbr')" placeholder='Places available' />
+                        <x-input-error :messages="$errors->get('nbr')" class="mt-2" />
 
-                    <x-text-input id="nbr" class="block w-full" type="text" name="nombre_place" :value="old('nombre_place')"
-                        required placeholder='Location' />
-                    <x-input-error :messages="$errors->get('nombre_place')" class="mt-2" />
+                    </div>
+                    <div>
 
-                    <x-text-input id="title" class="block  w-full" type="text" name="price" :value="old('price')"
-                        required placeholder='Price' />
-                    <x-input-error :messages="$errors->get('price')" class="mt-2" />
-                   
+                        <x-text-input id="title" class="block  w-full" type="text" name="price" :value="old('price')"
+                            placeholder='Price' />
+                        <x-input-error :messages="$errors->get('price')" class="mt-2" />
+                    </div>
+                    <div>
                         <select id="countries" name="category_id"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                          
-                            <option selected >Choose a category</option>
+
+                            <option selected>Choose a category</option>
                             @foreach ($categories as $cat)
-                            <option  value="{{ $cat->id }}"> {{ $cat->name }}</option>
+                                <option value="{{ $cat->id }}"> {{ $cat->name }}</option>
                             @endforeach
                         </select>
-                   
+                        <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+
+                    </div>
 
 
                 </div>

@@ -3,7 +3,9 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 
 /*
@@ -24,7 +26,7 @@ Route::get('/', function () {
 
 // organizator routes
 
-Route::middleware(['auth', 'organizator'])->group(function () {
+Route::middleware(['auth','organizator'])->group(function () {
     Route::prefix('organizator')->name('organizator.')->group(function () {
         Route::get('/dashboard', function () {
             return view('organizator.dashboard');
