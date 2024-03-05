@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->dateTime('date');
             $table->string('location');
             $table->foreignIdFor(Category::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained();
             $table->integer('nbr');
             $table->enum('mode', ['automatic', 'manual'])->default('automatic');
             $table->timestamps();
