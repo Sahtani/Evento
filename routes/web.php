@@ -32,7 +32,6 @@ Route::middleware(['auth', 'organizator'])->group(function () {
 
         Route::get('/createvent',[EventController::class,'create'])->name('createvent');
         Route::post('/storevent',[EventController::class,'store'])->name('storevent');
-        Route::post('/showcategory',[CategoryController::class,'index'])->name('showcategory');
     });
 });
 
@@ -50,7 +49,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
-        })->name('userdash');
+        })->name('admindash');
     });
 });
 

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class Admin
@@ -15,6 +16,16 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        if (Auth::check()) {
+            $user = Auth::user();
+            $role = $user->role;
+            if ($role === 'admin') {
+                return $next($request);
+            }elseif($role === 'organizator'){
+                return redirect()->route('organizator.userdash');
+            }else{      
+                return redirect()->route('user.userdash');
+            }
+        }   return redirect('/login');  
     }
 }
