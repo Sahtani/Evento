@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,7 @@ Route::middleware(['auth', 'organizator'])->group(function () {
 
         Route::get('/createvent',[EventController::class,'create'])->name('createvent');
         Route::post('/storevent',[EventController::class,'store'])->name('storevent');
+        Route::post('/showcategory',[CategoryController::class,'index'])->name('showcategory');
     });
 });
 

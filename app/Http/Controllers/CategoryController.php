@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Eventrequest;
 use App\Models\Category;
-use App\Models\Event;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 
-class EventController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+       
+        return view('organizator.create',);
     }
 
     /**
@@ -24,31 +21,16 @@ class EventController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('organizator.create', compact('categories'));
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(EventRequest $request)
+    public function store(Request $request)
     {
-        $eventData = $request->validated();
-
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filePath = $image->store('public/uploads');
-            $fileName = explode("/", $filePath);
-            $eventData["image"] = $fileName[2];
-        } else {
-            $eventData["image"] = 'event.png';
-        }
-
-        $eventData['user_id'] = Auth::id();
-
-        $event = Event::create($eventData);
+        //
     }
-
 
     /**
      * Display the specified resource.
