@@ -164,7 +164,7 @@
 @auth
     <li>
         <form method="POST" action="{{ route('logout') }}"
-            class="text-white md:bg-red-600 font-serif focus:outline-none  font-bold rounded-full text-sm px-5 text-center">
+            class="text-white md:bg-red-800 font-serif focus:outline-none  font-bold rounded-lg text-sm px-5 text-center">
             @csrf
 
             <x-dropdown-link :href="route('logout')"

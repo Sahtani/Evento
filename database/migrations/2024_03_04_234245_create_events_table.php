@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreignIdFor(Category::class)->constrained();
             $table->foreignIdFor(User::class)->constrained();
             $table->integer('nbr');
+            $table->integer('price');
             $table->enum('mode', ['automatic', 'manual'])->default('automatic');
             $table->timestamps();
     });}
