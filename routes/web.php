@@ -1,10 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -21,11 +18,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name("home");
+Route::get("/", function() {
+    return view("home");
+})->name("home")->middleware('checkRole');
+
 // user routes
-Route::middleware(['auth', 'checkRole','checkBanStatus'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::prefix('user')->name('user.')->group(function () {
         Route::get('/dashboard', function () {
             return view('user.dashboard');
@@ -35,7 +33,7 @@ Route::middleware(['auth', 'checkRole','checkBanStatus'])->group(function () {
 
 // organizator routes
 
-Route::middleware(['auth','checkRole'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::prefix('organizator')->name('organizator.')->group(function () {
         Route::get('/organdashboard',[EventController::class, 'index'])->name('organdashboard');
 
@@ -52,7 +50,7 @@ Route::middleware(['auth','checkRole'])->group(function () {
 
 
 // admin routes
-Route::middleware(['auth', 'checkRole'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/admindashboard',[AdminController::class,'index'])->name('admindashboard');
         Route::patch('/toggleAccess/{user}',[AdminController::class,'toggleAccess'])->name('toggleAccess');
