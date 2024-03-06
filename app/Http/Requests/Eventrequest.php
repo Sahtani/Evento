@@ -30,6 +30,7 @@ class Eventrequest extends FormRequest
                 'price' => 'required|numeric|min:1',
                 'description' => 'required|string',
                 'category_id' => 'required  ',
+                'mode' => 'required',
             ];
     }
 }

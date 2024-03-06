@@ -28,12 +28,15 @@ Route::get('/', function () {
 
 Route::middleware(['auth','organizator'])->group(function () {
     Route::prefix('organizator')->name('organizator.')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('organizator.dashboard');
-        })->name('userdash');
+        Route::get('/dashboard',[EventController::class, 'index'])->name('userdash');
 
         Route::get('/createvent',[EventController::class,'create'])->name('createvent');
         Route::post('/storevent',[EventController::class,'store'])->name('storevent');
+        Route::get('/readevente/{id}',[EventController::class,'show'])->name('readevent');
+        Route::delete('/eventdestroy/{id}',[EventController::class,'destroy'])->name('eventdestroy');
+        Route::get('/editevent/{id}',[EventController::class,'edit'])->name('editevent');
+        Route::put('/updatevent/{id}',[EventController::class,'update'])->name('updatevent');
+
     });
 });
 

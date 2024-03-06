@@ -16,7 +16,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $organizator = Auth::user();
+        $events = $organizator->events;
+        return view('organizator.dashboard', compact('events'));
     }
 
     /**
@@ -32,7 +34,7 @@ class EventController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(EventRequest $request)
-    { 
+    {
         $eventData = $request->validated();
 
         if ($request->hasFile('image')) {
@@ -47,7 +49,7 @@ class EventController extends Controller
         $eventData['user_id'] = Auth::id();
 
         $event = Event::create($eventData);
-        return redirect()->route('organizator.userdash');
+        return redirect()->route('organizator.userdash')->with('success', 'Event created successfully.');;
     }
 
 
@@ -56,7 +58,8 @@ class EventController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $event = Event::findOrFail($id);
+        return view('organizator.event', compact('event'));
     }
 
     /**
@@ -64,7 +67,9 @@ class EventController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categories = Category::all();
+        $event = Event::findOrFail($id);
+        return view('organizator.edit', compact('event', 'categories'));
     }
 
     /**
@@ -72,7 +77,18 @@ class EventController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $event=Event::findOrFail($id);
+        $event->update([
+            'title' => $request->input('title'),
+            'date' => $request->input('date'),
+            'location' => $request->input('location'),
+            'nbr' => $request->input('nbr'),
+            'price' => $request->input('price'),
+            'description' => $request->input('description'),
+            'category_id' => $request->input('category_id'),
+        ]);
+        return redirect()->route('organizator.userdash', $event->id)->with('success', 'Event successfully updated');
+    
     }
 
     /**
@@ -80,6 +96,8 @@ class EventController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $event = Event::findOrFail($id);
+        $event->delete();
+        return redirect()->route('organizator.userdash');
     }
 }
