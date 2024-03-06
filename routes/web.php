@@ -23,9 +23,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-})->name("home")->middleware('guest');
+})->name("home");
 // user routes
-Route::middleware(['auth', 'user','checkBanStatus'])->group(function () {
+Route::middleware(['auth', 'checkRole','checkBanStatus'])->group(function () {
     Route::prefix('user')->name('user.')->group(function () {
         Route::get('/dashboard', function () {
             return view('user.dashboard');
@@ -35,7 +35,7 @@ Route::middleware(['auth', 'user','checkBanStatus'])->group(function () {
 
 // organizator routes
 
-Route::middleware(['auth','organizator'])->group(function () {
+Route::middleware(['auth','checkRole'])->group(function () {
     Route::prefix('organizator')->name('organizator.')->group(function () {
         Route::get('/organdashboard',[EventController::class, 'index'])->name('organdashboard');
 
@@ -52,7 +52,7 @@ Route::middleware(['auth','organizator'])->group(function () {
 
 
 // admin routes
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'checkRole'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/admindashboard',[AdminController::class,'index'])->name('admindashboard');
         Route::patch('/toggleAccess/{user}',[AdminController::class,'toggleAccess'])->name('toggleAccess');

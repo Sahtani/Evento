@@ -50,11 +50,11 @@ class RegisteredUserController extends Controller
 
         $role=Auth::user()->role;
         if ($role === 'admin') {
-            return redirect()->route('/admin/dashboard');
+            return redirect()->route('admin.admindashboard');
         } elseif ($role === 'user') {
-            return redirect()->route('/user/dashboard');
+            return redirect()->route('user.userdash');
         } elseif ($role === 'organizator') {
-            return redirect()->route('/organizator/dashboard');
+            return redirect()->route('organizator.organdashboard');
         }
         return redirect()->intended(RouteServiceProvider::HOME);
     }
