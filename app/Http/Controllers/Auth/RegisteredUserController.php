@@ -41,21 +41,13 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
+            'role' => $request->role
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        $role=Auth::user()->role;
-        if ($role === 'admin') {
-            return redirect()->route('admin.admindashboard');
-        } elseif ($role === 'user') {
-            return redirect()->route('user.userdash');
-        } elseif ($role === 'organizator') {
-            return redirect()->route('organizator.organdashboard');
-        }
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect(RouteServiceProvider::HOME);
     }
 }
