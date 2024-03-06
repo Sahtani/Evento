@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -22,13 +24,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 })->name("home")->middleware('guest');
-
+// user routes
+Route::middleware(['auth', 'user','checkBanStatus'])->group(function () {
+    Route::prefix('user')->name('user.')->group(function () {
+        Route::get('/dashboard', function () {
+            return view('user.dashboard');
+        })->name('userdash');
+    });
+});
 
 // organizator routes
 
 Route::middleware(['auth','organizator'])->group(function () {
     Route::prefix('organizator')->name('organizator.')->group(function () {
-        Route::get('/dashboard',[EventController::class, 'index'])->name('userdash');
+        Route::get('/organdashboard',[EventController::class, 'index'])->name('organdashboard');
 
         Route::get('/createvent',[EventController::class,'create'])->name('createvent');
         Route::post('/storevent',[EventController::class,'store'])->name('storevent');
@@ -40,21 +49,13 @@ Route::middleware(['auth','organizator'])->group(function () {
     });
 });
 
-// user routes
-Route::middleware(['auth', 'user'])->group(function () {
-    Route::prefix('user')->name('user.')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('user.dashboard');
-        })->name('userdash');
-    });
-});
+
 
 // admin routes
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admindash');
+        Route::get('/admindashboard',[AdminController::class,'index'])->name('admindashboard');
+        Route::patch('/toggleAccess/{user}',[AdminController::class,'toggleAccess'])->name('toggleAccess');
     });
 });
 

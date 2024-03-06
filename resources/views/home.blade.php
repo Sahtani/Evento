@@ -2,17 +2,21 @@
 
 @section('content')
   
-{{-- <div class="m-10">
-    <img src="{{ asset('image/bg.webp') }}" class="w-full hidden lg:block" alt="">
-</div> --}}
-
-  {{-- <div class=" px-6 sm:py-20 py-10 font-[sans-serif]">
-        <div class="max-w-screen-xl mx-auto text-center text-bleuc">
-          <h1 class="px-6 text-4xl max-sm:text-3xl font-extrabold leading-tight mb-4">Welcome to Our Premium Service</h1>
-          <p class="text-lg mb-8">Experience excellence like never before with our exclusive products and services.Experience excellence like never before with our exclusive products and services.</p>
-          <button type="button" class="bg-bleu hover:bg-blue-700 text-bleuc text-lg font-semibold px-8 py-2 rounded-full transition duration-300 ease-in-out shadow-lg hover:shadow-xl">Get Started</button>
+@if(session('error'))
+<div>
+    <div class="flex items-center p-4 w-full  p-4 ml-12 mt-4 text-xl text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-blue-400"
+        role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+        </svg>
+        <div>
+            <span class="font-medium">  {{ session('error') }}</span>
         </div>
-      </div> --}}
+    </div>
+</div>
+@endif
       <div class="bg-[#f8f9ff]  text-[#333] text-[15px]">
         <div class="relative">
           <div class="px-4 sm:px-10">
