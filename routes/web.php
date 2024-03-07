@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -54,6 +57,14 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/admindashboard',[AdminController::class,'index'])->name('admindashboard');
         Route::patch('/toggleAccess/{user}',[AdminController::class,'toggleAccess'])->name('toggleAccess');
+        Route::get('/categories',[CategoryController::class,'index'])->name('categories');
+
+        Route::get('/events',[AdminController::class,'events'])->name('events');
+        Route::patch('/validatevent/{event}',[AdminController::class,'validateEvent'])->name('validateEvent');
+
+        Route::post('/storecat',[CategoryController::class,'store'])->name('storecat');
+        Route::delete('/destroycat/{id}',[CategoryController::class,'destroy'])->name('destroycat');
+
     });
 });
 

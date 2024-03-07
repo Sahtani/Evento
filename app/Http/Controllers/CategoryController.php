@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\returnSelf;
+
 class CategoryController extends Controller
 {
     /**
@@ -12,8 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $categories = Category::all();
+        return view('admin.categories',compact('categories'));
        
-        return view('organizator.create',);
     }
 
     /**
@@ -21,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+       
     }
 
     /**
@@ -29,8 +32,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+            // Valider les données de la requête
+            $request->validate([
+                'name' => 'required|string|max:255',
+            ]);
+            $category = new Category();
+            $category->name = $request->name;
+            $category->user_id = auth()->id();
+            $category->save();
+            return back()->with('success', 'Category created successfully.');
+        }
+    
 
     /**
      * Display the specified resource.
@@ -61,6 +73,8 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+       $cat=Category::findOrFail($id);
+       $cat->delete();
+       return back()->with('success','Category delted successfully.');
     }
 }

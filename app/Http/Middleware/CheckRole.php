@@ -28,7 +28,7 @@ class CheckRole
                 }
             }else {
                 Auth::logout();
-                return redirect()->intended(RouteServiceProvider::HOME)->with("error", "banned");
+                return redirect()->intended(RouteServiceProvider::HOME)->with("error", "Your account has been banned.");
             }
         }
 

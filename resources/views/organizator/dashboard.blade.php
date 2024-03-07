@@ -1,21 +1,21 @@
 @extends('layouts.nav')
 
 @section('content')
-@if(session('success'))
-<div class="w-full">
-    <div class="flex items-center p-4  w-1/2 p-4 ml-12 mt-4 text-xl text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
-        role="alert">
-        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path
-                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-        </svg>
-        <div>
-            <span class="font-medium">{{ session('success') }}</span>
+    @if (session('success'))
+        <div class="w-full">
+            <div class="flex items-center p-4  w-1/2 p-4 ml-12 mt-4 text-xl text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <div>
+                    <span class="font-medium">{{ session('success') }}</span>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-@endif
+    @endif
     <div class="flex items-center justify-center mt-6">
         <a href="{{ route('organizator.createvent') }}"
             class="text-xl font-semibold text-white hover:bg-red-600 hover:text-white inline-block border border-bleu bg-red-800 py-2 rounded   px-4">Create
@@ -26,8 +26,8 @@
         @forelse  ($events as $event)
             <div class="max-w-sm w-full lg:max-w-full lg:flex">
                 <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-                style="background-image: url('{{ asset('storage/uploads/' . $event->image) }}')" title="Event Image">
-            </div>
+                    style="background-image: url('{{ asset('storage/uploads/' . $event->image) }}')" title="Event Image">
+                </div>
                 <div
                     class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                     <div class="mb-8">
@@ -89,12 +89,10 @@
                 </div>
 
             </div>
-            @empty
+        @empty
             <div class="p-6">
                 <p class="text-gray-600">No events available.</p>
             </div>
-            @endforelse 
+        @endforelse
     </div>
 @endsection
-
-

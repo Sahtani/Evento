@@ -114,24 +114,24 @@
 
                     </li>
                     @endcompany --}}
-                    {{-- @admin
+                    @admin
                     <li>
-                        <a href="#" type="button"
-                            class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">All Jobseekers</a>
+                        <a href="{{ route("admin.admindashboard") }}" type="button"
+                            class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">All Users</a>
 
                     </li>
                     <li>
-                        <a href="#" type="button"
-                            class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">All companies</a>
+                        <a href="{{ route("admin.categories") }}" type="button"
+                            class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">All categories</a>
 
                     </li>
                     <li>
-                        <a href="#" type="button"
-                            class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">All jobs</a>
+                        <a href="{{ route('admin.events') }}" type="button"
+                            class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">All events</a>
 
                     </li>
 
-                    @endadmin --}}
+                    @endadmin 
                     {{-- @user
                     <li>
                         <a href="#" type="button"

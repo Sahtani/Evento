@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -12,15 +13,28 @@ class AdminController extends Controller
      */
     public function index()
     {
-      $users=User::where('role','user')->get();
-      return view('admin.dashboard',compact('users'));
+        $users = User::where('role', 'user')->get();
+        return view('admin.dashboard', compact('users'));
     }
     public function toggleAccess(User $user)
-    { 
+    {
         $user->update(['access' => !$user->access]);
         return redirect()->back()->with('success', 'Access toggled successfully.');
     }
 
+    public function events()
+    {
+        $events = Event::all();
+        return view('admin.events', compact('events'));
+    }
+    
+    public function validateEvent(Event $event)
+    {
+        $event->status = 'accepted';
+        $event->save();
+
+        return back()->with('success', 'Event validated successfully.');
+    }
     /**
      * Show the form for creating a new resource.
      */

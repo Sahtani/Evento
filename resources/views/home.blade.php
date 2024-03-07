@@ -4,7 +4,7 @@
   
 @if(session('error'))
 <div>
-    <div class="flex items-center p-4 w-full  p-4 ml-12 mt-4 text-xl text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-blue-400"
+    <div class="flex items-center  w-full  p-4 ml-12 mt-4 text-xl text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-blue-400"
         role="alert">
         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -20,7 +20,7 @@
       <div class="bg-[#f8f9ff]  text-[#333] text-[15px]">
         <div class="relative">
           <div class="px-4 sm:px-10">
-            <div class="mt-16 max-w-4xl mx-auto text-center relative z-10">
+            <div class="mt-6 max-w-4xl mx-auto text-center relative z-10">
               <h1 class="md:text-6xl text-4xl font-extrabold mb-6 md:!leading-[75px]"> THE BIGGEST EVENT BOOKING PLATFORM</h1>
               <p class="text-base">COMING SOON!</p>
               <div class="mt-10">
