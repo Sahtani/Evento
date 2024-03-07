@@ -62,6 +62,14 @@ class ReservationController extends Controller
 
         return redirect()->back()->with('success', 'Reservation confirmed successfully');
     }
+    public function ticket($id)
+    {
+        // $reservation = Reservation::findOrFail($id); 
+        // $reservation->update(['status' => 'confirmed']); 
+
+        return  view('user.ticket');
+       
+    }
     /**
      * Show the form for creating a new resource.   
      */

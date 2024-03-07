@@ -77,11 +77,11 @@
                             more</a>
                         @foreach ($event->resevations as $reservation)
                             @if ($reservation->status === 'confirmed')
-                                <form action="{{ route('user.ticket', $reservation->id) }}" method="POST">
-                                    @csrf
+                                <a href="{{ route('user.ticket', $reservation->id) }}">
+                                    {{-- @csrf --}}
                                     <button type="submit" class="text-blue-600 text-sm hover:underline">Afficher le
                                         ticket</button>
-                                </form>
+                                </a>
                             @elseif ($reservation->status === 'cancelled')
                                 <button type="button" class="text-blue-600 text-sm hover:underline">Cancelled</button>
                             @elseif ($reservation->status === 'pending')
