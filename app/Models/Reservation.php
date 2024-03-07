@@ -15,7 +15,7 @@ protected $fillable=['user_id','event_id','status'];
         return $this->belongsTo(User::class)->where('role', 'user');
          
      }
-    public function reservation(){
+    public function event(){
         return $this->belongsTo(Event::class);
          
      }

@@ -28,31 +28,42 @@ class ReservationController extends Controller
             return redirect()->back()->with('error', 'Sorry, there are no more seats available for this event.');
         }
 
-        if ($event->mode === 'automatic') {
-            $status = 'confirmed';
-        } else {
-            $status = 'pending';
-        }
-
         $reservation = new Reservation();
         $reservation->event_id = $event->id;
-        $reservation->status = $status;
         $reservation->user_id = Auth::id();
-        $reservation->save();
 
         if ($event->mode === 'automatic') {
+            $status = 'confirmed';
+            $reservation->status = $status;
+
             $event->nbr -= 1;
             $event->save();
+            $reservation->save();
             return redirect()->route('user.userdash')->with('success', 'Your booking has been successfully registered.');
         } else {
+            $status = 'pending';
+            $reservation->status = $status;
+            $reservation->save();
             return redirect()->route('user.userdash')->with('success', 'Your reservation will be processed soon.');
         }
+
+       
     }
+    public function Reservation()
+    {
+        $reservations=Reservation::where('status','pending')->paginate(6);
+       
+        return view('organizator.reservation',compact('reservations'));
+    }
+    public function confirmReservation($id)
+    {
+        $reservation = Reservation::findOrFail($id); 
+        $reservation->update(['status' => 'confirmed']); 
 
-
-
+        return redirect()->back()->with('success', 'Reservation confirmed successfully');
+    }
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource.   
      */
     public function create()
     {

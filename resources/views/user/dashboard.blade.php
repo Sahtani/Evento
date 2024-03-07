@@ -84,29 +84,33 @@
                                 </form>
                             @elseif ($reservation->status === 'cancelled')
                                 <button type="button" class="text-blue-600 text-sm hover:underline">Cancelled</button>
-                                @endif
-                        
-                                @endforeach
-                   
-                            <form action="{{ route('user.reserve', $event->id) }}" method="POST"
-                                class="mt-4 inline-block text-blue-600 text-sm hover:underline">
-                                @csrf
-                                <button type="submit"
-                                    class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 font-semibold">
-                                    <div class="flex gap-3">
-                                        <span>
-                                            Reserver
-                                        </span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" style="fill: rgba(247, 241, 241, 1);transform: ;msFilter:;">
-                                            <path
-                                                d="M3 5v14c0 2.201 1.794 3 3 3h15v-2H6.012C5.55 19.988 5 19.806 5 19s.55-.988 1.012-1H21V4c0-1.103-.897-2-2-2H6c-1.206 0-3 .799-3 3z">
-                                            </path>
-                                        </svg>
-                                    </div>
-                                </button>
-                            </form>
-                     
+                            @elseif ($reservation->status === 'pending')
+                                <button type="button" class="text-blue-600 text-sm hover:underline">pending</button>
+                            @else
+                                <form action="{{ route('user.reserve', $event->id) }}" method="POST"
+                                    class="mt-4 inline-block text-blue-600 text-sm hover:underline">
+                                    @csrf
+                                    <button type="submit"
+                                        class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 font-semibold">
+                                        <div class="flex gap-3">
+                                            <span>
+                                                Reserver
+                                            </span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24"
+                                                style="fill: rgba(247, 241, 241, 1);transform: ;msFilter:;">
+                                                <path
+                                                    d="M3 5v14c0 2.201 1.794 3 3 3h15v-2H6.012C5.55 19.988 5 19.806 5 19s.55-.988 1.012-1H21V4c0-1.103-.897-2-2-2H6c-1.206 0-3 .799-3 3z">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                    </button>
+                                </form>
+                            @endif
+                        @endforeach
+
+
+
 
 
                     </div>

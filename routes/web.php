@@ -49,6 +49,8 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/eventdestroy/{id}',[EventController::class,'destroy'])->name('eventdestroy');
         Route::get('/editevent/{id}',[EventController::class,'edit'])->name('editevent');
         Route::put('/updatevent/{id}',[EventController::class,'update'])->name('updatevent');
+        Route::get('/Reservation',[ReservationController::class,'Reservation'])->name('Reservation');
+        Route::patch('/confirmReservation/{id}',[ReservationController::class,'confirmReservation'])->name('confirmReservation');
 
     });
 });
