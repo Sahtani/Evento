@@ -20,7 +20,11 @@ class EventController extends Controller
         $events = $organizator->events;
         return view('organizator.dashboard', compact('events'));
     }
-
+    public function showEvent()
+    {
+        $events=Event::where('status','accepted')->paginate(6);
+        return view('user.dashboard',compact('events'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -49,7 +53,7 @@ class EventController extends Controller
         $eventData['user_id'] = Auth::id();
 
         $event = Event::create($eventData);
-        return redirect()->route('organizator.userdash')->with('success', 'Event created successfully.');;
+        return redirect()->route('organizator.organdashboard')->with('success', 'Event created successfully.');;
     }
 
 
@@ -60,6 +64,11 @@ class EventController extends Controller
     {
         $event = Event::findOrFail($id);
         return view('organizator.event', compact('event'));
+    }
+    public function showForUser(string $id)
+    {
+        $event = Event::findOrFail($id);
+        return view('user.read', compact('event'));
     }
 
     /**
@@ -77,7 +86,7 @@ class EventController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $event=Event::findOrFail($id);
+        $event = Event::findOrFail($id);
         $event->update([
             'title' => $request->input('title'),
             'date' => $request->input('date'),
@@ -87,8 +96,7 @@ class EventController extends Controller
             'description' => $request->input('description'),
             'category_id' => $request->input('category_id'),
         ]);
-        return redirect()->route('organizator.userdash', $event->id)->with('success', 'Event successfully updated');
-    
+        return redirect()->route('organizator.organdashboard', $event->id)->with('success', 'Event successfully updated');
     }
 
     /**
@@ -98,6 +106,6 @@ class EventController extends Controller
     {
         $event = Event::findOrFail($id);
         $event->delete();
-        return redirect()->route('organizator.userdash');
+        return redirect()->route('organizator.organdashboard');
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -28,9 +29,10 @@ Route::get("/", function() {
 // user routes
 Route::middleware(['auth'])->group(function () {
     Route::prefix('user')->name('user.')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('user.dashboard');
-        })->name('userdash');
+        Route::get('/dashboard', [EventController::class,'showEvent'])->name('userdash');
+        Route::get('/readEventUser/{id}',[EventController::class,'showForUser'])->name('readEventUser');
+        Route::post('/reserve/{id}',[ReservationController::class,'reserve'])->name('reserve');
+
     });
 });
 
@@ -58,7 +60,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admindashboard',[AdminController::class,'index'])->name('admindashboard');
         Route::patch('/toggleAccess/{user}',[AdminController::class,'toggleAccess'])->name('toggleAccess');
         Route::get('/categories',[CategoryController::class,'index'])->name('categories');
-
+// event read more
         Route::get('/events',[AdminController::class,'events'])->name('events');
         Route::patch('/validatevent/{event}',[AdminController::class,'validateEvent'])->name('validateEvent');
 
@@ -69,16 +71,5 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
 
 require __DIR__ . '/auth.php';

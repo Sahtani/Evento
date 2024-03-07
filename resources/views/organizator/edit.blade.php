@@ -5,7 +5,7 @@
 
         <div
             class="grid sm:grid-cols-1 items-center gap-16 p-8 mx-auto max-w-4xl bg-white shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md text-[#333] font-[sans-serif]">
-            <a href="{{ route('organizator.userdash') }}" title="Back to home your offers" class="pb-2">
+            <a href="{{ route('organizator.organdashboard') }}" title="Back to home your offers" class="pb-2">
                 <svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 448 512">
                     <path fill="#2d2522"
                         d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
