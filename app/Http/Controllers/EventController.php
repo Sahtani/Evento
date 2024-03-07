@@ -23,6 +23,7 @@ class EventController extends Controller
     public function showEvent()
     {
         $events=Event::where('status','accepted')->paginate(6);
+       
         return view('user.dashboard',compact('events'));
     }
     /**
