@@ -59,15 +59,17 @@ class ReservationController extends Controller
     {
         $reservation = Reservation::findOrFail($id); 
         $reservation->update(['status' => 'confirmed']); 
+        $reservation->event->nbr-=1;
+        $reservation->event->save();
 
         return redirect()->back()->with('success', 'Reservation confirmed successfully');
     }
     public function ticket($id)
     {
-        // $reservation = Reservation::findOrFail($id); 
+        $reservation = Reservation::findOrFail($id); 
         // $reservation->update(['status' => 'confirmed']); 
 
-        return  view('user.ticket');
+        return  view('user.ticket',compact('reservation'));
        
     }
     /**

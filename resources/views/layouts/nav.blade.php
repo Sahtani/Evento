@@ -93,27 +93,17 @@
 
                     </li>    
                     @endguest
+                    @organizator
+                    <li>
+                        <a href="{{ route('organizator.Reservation') }}" type="button"
+                            class="text-gray-700 font-bold font-serif focus:outline-none text-sm px-6 py-2.5 text-center">Reservation</a>
+                    </li>    
+                @endorganizator
+                    
                     
                    
-                    {{-- @user
-                    <li>
-                        <a href="#" type="button"
-                            class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">Profile</a>
-
-                    </li>
-                    @enduser --}}
-                    {{-- @company
-                    <li>
-                        <a href="#" type="button"
-                            class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">Profile</a>
-
-                    </li>
-                    <li>
-                        <a href="#" type="button"
-                            class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">My Jobs</a>
-
-                    </li>
-                    @endcompany --}}
+                  
+                  
                     @admin
                     <li>
                         <a href="{{ route("admin.admindashboard") }}" type="button"
@@ -132,18 +122,7 @@
                     </li>
 
                     @endadmin 
-                    {{-- @user
-                    <li>
-                        <a href="#" type="button"
-                            class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">Jobs</a>
-
-                    </li>
-                    <li>
-                        <a href="#" type="button"
-                            class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">Companies</a>
-
-                    </li>
-                    @enduser --}}
+                  
                    @guest
                    <li>
                     @if (Route::has('register'))

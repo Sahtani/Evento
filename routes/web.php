@@ -32,8 +32,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [EventController::class,'showEvent'])->name('userdash');
         Route::get('/readEventUser/{id}',[EventController::class,'showForUser'])->name('readEventUser');
         Route::post('/reserve/{id}',[ReservationController::class,'reserve'])->name('reserve');
-        Route::post('/ticket/{id}',[ReservationController::class,'ticket'])->name('ticket');
-
+        Route::get('/ticket/{id}',[ReservationController::class,'ticket'])->name('ticket');
+        Route::get('/search', [EventController::class, 'search'])->name('search');
+        Route::get('/filtrer', [EventController::class, 'filterByCategory'])->name('filtrer');
     });
 });
 

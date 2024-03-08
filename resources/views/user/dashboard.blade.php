@@ -31,10 +31,46 @@
             </div>
         </div>
     @endif
-    <div class=" m-14 grid md:grid-cols-2 grid-cols-1 gap-4">
+    {{-- action="{{ route('user.seachEvent') }}" method="GET" --}}
+    {{-- search event by title --}}
+    <div class="max-w-md mx-auto  focus:outline-none mt-10">
+        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                </svg>
+            </div>
+            <input type="search" id="searchInput" name="title"
+                class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 "
+                placeholder="Search Mockups, Logos..." required />
+
+            {{-- <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700  focus:outline-none  font-medium rounded-lg text-sm px-4 py-2 ">Search</button> --}}
+        </div>
+    </div>
+    <div id="searchResults">
+
+    </div>
+
+    <form class="max-w-sm mx-auto" action="{{ route('user.filtrer') }}" method="GET">cre
+        @csrf
+        <select id="categories" name="category"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected disabled hidden>Filter By Category</option>
+            @foreach ($categories as $categorie)
+                <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
+            @endforeach
+        </select>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-2">Filter</button>
+    </form>
+    
+
+    <div class=" m-14 grid md:grid-cols-2 grid-cols-1 gap-4" id="events-list">
         @foreach ($events as $event)
-            <div
-                class="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-2xl mx-auto border border-white bg-white">
+            <div class="entreprise-card relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-2xl mx-auto border border-white bg-white"
+                data-nom="{{ $event->title }}">
                 <div class="w-full md:h-full md:w-1/2 bg-white grid place-items-center">
                     <img src="{{ asset('storage/uploads/' . $event->image) }}" alt="tailwind logo"
                         class="rounded-xl md:h-full" />
@@ -56,7 +92,8 @@
                     </div>
                     <h3 class="font-black text-gray-800 md:text-3xl text-xl">{{ $event->title }}</h3>
                     <p class="md:text-lg text-gray-500 text-base">
-                        {{ substr($event->description, 0, 100) }}{{ strlen($event->description) > 100 ? '...' : '' }}</p>
+                        {{ substr($event->description, 0, 100) }}{{ strlen($event->description) > 100 ? '...' : '' }}
+                    </p>
 
                     <p class="text-xl font-black text-red-700">
                         ${{ $event->price }}
@@ -108,11 +145,6 @@
                                 </form>
                             @endif
                         @endforeach
-
-
-
-
-
                     </div>
 
                 </div>
@@ -121,3 +153,21 @@
     </div>
     {{ $events->links() }}
 @endsection
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('searchInput').addEventListener('input', function() {
+            var searchTerm = this.value.trim().toLowerCase();
+            console.log(searchTerm);
+            var entrepriseCards = document.querySelectorAll('.entreprise-card');
+
+            entrepriseCards.forEach(function(card) {
+                var nom = card.getAttribute('data-nom').toLowerCase();
+                if (nom.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
