@@ -16,90 +16,65 @@
             </div>
         </div>
     @endif
+    <div class=" mx-20 px-4 py-8 sm:px-8">
 
-    <div>
-        <div class="flex flex-col mt-8 mx-10">
-            <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                <div
-                    class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-                    <table class="min-w-full">
-                        <thead>
-                            <tr>
-                                <th
-                                    class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                    Image</th>
-                                <th
-                                    class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                    Title</th>
-                                <th
-                                    class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                    Location</th>
-                                <th
-                                    class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                    Category</th>
-                                <th
-                                    class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                    Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody class="bg-white">
+        <div class="overflow-y-hidden rounded-lg border">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="bg-slate-200  border text-left text-xs font-semibold uppercase tracking-widest text-gray-700">
+                            <th class="px-5 py-3 ">Title</th>
+                            <th class="px-5 py-3">Location</th>
+                            <th class="px-5 py-3">Category</th>
+                            <th class="px-5 py-3">Created at</th>
+                            <th class="px-5 py-3">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-500">
+                        <tr>
                             @foreach ($events as $event)
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 h-10 w-10">
-                                                <img class="h-10 w-10 rounded-full"
+                            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                                <div class="flex items-center">
+                                    <div class="h-10 w-10 flex-shrink-0">
+                                        <img class="h-10 w-10 rounded-full"
                                                     src="{{ asset('storage/uploads/' . $event->image) }}" alt="" />
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="flex items-center">
-                                            <div class="ml-4">
-                                                <div class="text-sm leading-5 font-medium text-gray-900">{{ $event->title }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="flex items-center">
-                                            <div class="ml-4">
-                                                <div class="text-sm leading-5 text-gray-500">{{ $event->location }}</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="flex items-center">
-                                            <div class="ml-4">
-                                                <div class="text-sm leading-5 text-gray-500">{{ $event->category->name }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <form method="POST" action="{{ route('admin.validateEvent', $event->id) }}">
-                                            @method('PATCH')
-                                            @csrf
-                                            @if ($event->status == 'accepted')
-                                            <p type="submit"
-                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">accepted</p>
-                                    
-                                            @else
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="whitespace-no-wrap">{{ $event->title }}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                                <p class="whitespace-no-wrap">{{ $event->location }}</p>
+                            </td>
+                            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                                <p class="whitespace-no-wrap">{{ $event->category->name }}</p>
 
-                                            <button type="submit"
-                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Accepte</button>
-                                       
-                                       
-                                       @endif
-                                            </form>
-                                    </td>
+                            </td>
+                            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                                <p class="whitespace-no-wrap">{{ $event->created_at->format('M d, Y') }}</p>
 
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                            </td>
+                            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                                <form method="POST" action="{{ route('admin.validateEvent', $event->id) }}">
+                                    @method('PATCH')
+                                    @csrf
+                                    @if ($event->status == 'accepted')
+                                    <p type="submit"
+                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">accepted</p>
+                            
+                                    @else
+
+                                    <button type="submit"class="rounded-full bg-green-200 px-3 py-1 text-xs font-semibold text-green-900">Enable Access</button>
+                                 
+                               
+                               @endif
+                                </td>
+                        </tr>
+                       
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

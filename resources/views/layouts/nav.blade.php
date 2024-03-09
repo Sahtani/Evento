@@ -21,12 +21,12 @@
                 },
                 extend: {
                     colors: {
-                        whitec: "#ffffff ",
-                        bkeuciel: "#809fff",
-                        bleu: "#bfcfff",
-                        bleuc: "#001247",
+                        redd: "#ff0000 ",
+                        grun: "#b30000",
+                        rose: "#ffbfbf",
+                        roseb: "#ff8080",
                         bleucc: "#000066",
-                        beige: "#DED3A6",
+                        white: "#ffffff",
                         verblanc: "#E7EAEF",
                     },
                 },
@@ -49,7 +49,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
     
 </head>
-<body class="bg-gray-100 font-[sans-serif]">
+<body class="bg-gray-100 font-[sans-serif]">    
 
     <nav class=" bg-white border-gray-200 shadow rounded ">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 shadow-b-2xl">
@@ -99,11 +99,6 @@
                             class="text-gray-700 font-bold font-serif focus:outline-none text-sm px-6 py-2.5 text-center">Reservation</a>
                     </li>    
                 @endorganizator
-                    
-                    
-                   
-                  
-                  
                     @admin
                     <li>
                         <a href="{{ route("admin.admindashboard") }}" type="button"
@@ -118,6 +113,11 @@
                     <li>
                         <a href="{{ route('admin.events') }}" type="button"
                             class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">All events</a>
+
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.stats') }}" type="button"
+                            class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">stats</a>
 
                     </li>
 

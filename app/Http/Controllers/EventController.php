@@ -29,31 +29,30 @@ class EventController extends Controller
     public function search(Request $request)
     {
         $searchTerm = $request->input('title');
-
-        $events = Event::where('title', 'LIKE', "%{$searchTerm}%")->get();
-
-        return response()->json($events);
-    }
-    public function filterByCategory(Request $request)
-    {   
         $categories = Category::all();
-        
-        if ($request->has('category')) { 
-            $category = $request->input('category');
+        $events = Event::where('title', 'LIKE', "%{$searchTerm}%")->paginate(6);
     
-            $events = Event::whereHas('category', function ($query) use ($category) {
-                $query->where('name', $category);
-            })->paginate(6);    
-            
-
-        } else {
-            $events = Event::where('status', 'accepted')->paginate(6);
-        } 
-       dd($events);
-        return view('user.dashboard', compact('events', 'categories'));
+        return view('user.dashboard', compact('events','categories'));
     }
     
+    
+    public function filterByCategory(Request $request)
+    {   $categories = Category::all();
+        $categoryId = $request->input('category');
+        $events = Event::query()->where('status', 'accepted');
 
+        if ($categoryId) {
+            $events->whereHas('category', function ($query) use ($categoryId) {
+                $query->where('id', $categoryId);
+            });
+        }
+
+
+        $events = $events->paginate(10);
+
+        return view('user.dashboard', compact('events','categories'));
+
+    }
 
     /**
      * Show the form for creating a new resource.

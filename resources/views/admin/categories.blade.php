@@ -16,6 +16,21 @@
     </div>
 </div>
 @endif
+@if (session('error'))
+<div>
+    <div class="flex items-center p-4 w-full  p-4 ml-12 mt-4 text-xl text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-blue-400"
+        role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor" viewBox="0 0 20 20">
+            <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+        </svg>
+        <div>
+            <span class="font-medium"> {{ session('error') }}</span>
+        </div>
+    </div>
+</div>
+@endif
     <div class='max-w-md md:ml-6 mt-12 w-full'>
         <button data-modal-target="crud" onclick="clickBuyBtn(event)" data-modal-toggle="crud"
         class="font-semibold bg-red-800 text-gray-100 w-1/2 py-4 rounded-lg hover:bg-red-800 transition-all duration-300 ease-in-out flex items-center justify-center  focus:outline-none">
@@ -63,8 +78,7 @@
                             </div>
                         </form>
                         
-                        <a title="Edit" class="editCategorieButton" data-modal-target="crud-modal"
-                            onclick="clickBuyBtn(event)" data-modal-toggle="crud-modal"
+                        <a title="Edit" id="editCategorieButton" data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                             data-categorie-id="{{ $cat->id }}" data-categorie-name="{{ $cat->name }}">
 
 
@@ -108,9 +122,9 @@
                 @csrf
                 <div class="grid gap-4 mb-4 grid-cols-2">
                     <div class="col-span-2">
-                        <input type="hidden" name="id" id="editCategorieId">
-                        <label for="editName" class="block mb-2 text-sm font-medium text-gray-800">Name</label>
-                        <input type="text" name="name" id="editName" class="bg-white border focus:outline-none border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400" placeholder="Category name">
+                        <input type="hidden" name="id" id="createCategorieId">
+                        <label for="createName" class="block mb-2 text-sm font-medium text-gray-800">Name</label>
+                        <input type="text" name="name" id="createName" class="bg-white border focus:outline-none border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400" placeholder="Category name">
                         <span id="errorMessage" class="error-message text-xs text-red-500"></span>
                     </div>
                 </div>
@@ -144,17 +158,18 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form class="p-4 md:p-5" action="#" method="post">
+            <form class="p-4 md:p-5" action="{{ route('admin.update') }}" method="post">
+                @method('PUT')
+                @csrf
                 <div class="grid gap-4 mb-4 grid-cols-2">
                     <div class="col-span-2">
                         <input type="hidden" name="id" id="editCategorieId">
                         <label for="editName" class="block mb-2 text-sm font-medium text-gray-800">Name</label>
                         <input type="text" name="name" id="editName" class="bg-white border focus:outline-none border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400" placeholder="Category name" required="">
-
                     </div>
                 </div>
                 <div class="flex items-center justify-center">
-                    <button name="submit-edite" type="submit" class="text-white inline-flex items-center bg-mrbg focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-moinmaron">
+                    <button name="submit-edite" type="submit" class="text-white inline-flex items-center bg-red-800  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-moinmaron">
                         Update
                     </button>
                 </div>
@@ -163,35 +178,17 @@
     </div>
 </div>
 
-</body>
 <script>
-      document.querySelectorAll('.editCategorieButton').forEach(button => {
-         button.addEventListener('click', function() {
-             showEditCategorieForm(button);
-         });
-     });
+    document.addEventListener("DOMContentLoaded", () => {
+        const editBtns = document.querySelectorAll("#editCategorieButton");
 
-     function showEditCategorieForm(button) {
-         var editCategorieForm = document.getElementById('crud-modal');
-         console.log(editCategorieForm);
-         if (editCategorieForm) {
-             console.log(editCategorieForm.querySelector('#editCategorieId'));
-             editCategorieForm.querySelector('#editCategorieId').value = button.dataset.categorieId || '';
-             editCategorieForm.querySelector('#editName').value = button.dataset.categorieName || '';
-             editCategorieForm.querySelector('#date').value = button.dataset.categorieDate || '';
-         }
-     }
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     const form = document.querySelector('.addcat');
-    //     const nameInput = document.getElementById('editName');
-    //     const errorMessage = document.getElementById('errorMessage');
-    //     const submitButton = document.getElementById('submitButton');
-    //     submitButton.addEventListener('click', function(event) {
-    //         if (nameInput.value.trim() === '' || nameInput.value.trim().length < 3) {
-
-    //             errorMessage.textContent = 'Category name is required.';
-    //             event.preventDefault();
-    //         }
-    //     });
-    // });
+        editBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const categoryName = btn.getAttribute("data-categorie-name");
+                const categoryId = btn.getAttribute("data-categorie-id");
+                document.querySelector("#editName").value = categoryName;
+                document.querySelector("#editCategorieId").value = categoryId;
+            })
+        });
+    })
 </script>

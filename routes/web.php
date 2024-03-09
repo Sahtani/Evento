@@ -5,7 +5,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\StatisticsController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -70,6 +72,9 @@ Route::middleware(['auth'])->group(function () {
 
         Route::post('/storecat',[CategoryController::class,'store'])->name('storecat');
         Route::delete('/destroycat/{id}',[CategoryController::class,'destroy'])->name('destroycat');
+        Route::put('/update',[CategoryController::class,'update'])->name('update');
+        // stats
+        Route::get('/stats',[StatisticsController::class,'index'])->name('stats');
 
     });
 });

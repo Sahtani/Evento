@@ -3,37 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
-class AdminController extends Controller
+class StatisticsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = User::where('role', 'user')->get();
-        return view('admin.dashboard', compact('users'));
-    }
-    public function toggleAccess(User $user)
-    {
-        $user->update(['access' => !$user->access]);
-        return redirect()->back()->with('success', 'Access toggled successfully.');
-    }
-
-    public function events()
-    {
-        $events = Event::all();
-        return view('admin.events', compact('events'));
-    }
-    
-    public function validateEvent(Event $event)
-    {
-        $event->status = 'accepted';
-        $event->save();
-
-        return back()->with('success', 'Event validated successfully.');
+        $active_Users= User::where('access', 1)->where('role','user')->count();
+        $events = Event::count();
+        $Reservation = Reservation::count();
+        return view('admin.stats',compact('active_Users','events','Reservation'));
     }
 
     /**

@@ -31,9 +31,8 @@
             </div>
         </div>
     @endif
-    {{-- action="{{ route('user.seachEvent') }}" method="GET" --}}
     {{-- search event by title --}}
-    <div class="max-w-md mx-auto  focus:outline-none mt-10">
+    <form class="max-w-md mx-auto  focus:outline-none mt-10" action="{{ route('user.search') }}" method="GET">
         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
         <div class="relative">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -47,15 +46,15 @@
                 class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 "
                 placeholder="Search Mockups, Logos..." required />
 
-            {{-- <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700  focus:outline-none  font-medium rounded-lg text-sm px-4 py-2 ">Search</button> --}}
+            <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700  focus:outline-none  font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
         </div>
-    </div>
-    <div id="searchResults">
+    </form>
+    {{-- <div id="searchResults">
 
-    </div>
+    </div> --}}
 
-    <form class="max-w-sm mx-auto" action="{{ route('user.filtrer') }}" method="GET">cre
-        @csrf
+    <form class="max-w-sm mx-auto" action="{{ route('user.filtrer') }}" method="GET">
+
         <select id="categories" name="category"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option selected disabled hidden>Filter By Category</option>
@@ -63,9 +62,10 @@
                 <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
             @endforeach
         </select>
-        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-2">Filter</button>
+        <button type="submit"
+            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-2">Filter</button>
     </form>
-    
+
 
     <div class=" m-14 grid md:grid-cols-2 grid-cols-1 gap-4" id="events-list">
         @foreach ($events as $event)
@@ -150,10 +150,13 @@
                 </div>
             </div>
         @endforeach
+        @if ($events->isEmpty())
+            <p>No events found in this category.</p>
+        @endif
     </div>
     {{ $events->links() }}
 @endsection
-<script>
+{{-- <script>
     document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('searchInput').addEventListener('input', function() {
             var searchTerm = this.value.trim().toLowerCase();
@@ -170,4 +173,4 @@
             });
         });
     });
-</script>
+</script> --}}
