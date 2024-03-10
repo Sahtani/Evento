@@ -20,7 +20,7 @@ class CheckRole
         if ($request->user()) {
             if ($request->user()->access !== 0) {
                 if ($request->user()->role === "admin") {
-                    return redirect()->route('admin.admindashboard');
+                    return redirect()->route('admin.stats');
                 }else if ($request->user()->role === "user") {
                     return redirect()->route('user.userdash');
                 }else if ($request->user()->role === "organizator") {

@@ -13,6 +13,7 @@
                             <th class="px-5 py-3">User Role</th>
                             <th class="px-5 py-3">Created at</th>
                             <th class="px-5 py-3">Status</th>
+                            <th class="px-5 py-3">Action</th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-500">
@@ -39,6 +40,17 @@
                             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                                 <p class="whitespace-no-wrap">{{ $user->created_at->format('M d, Y') }}</p>
 
+                            </td>
+                            <td class="border-b border-gray-200 bg-white px- py-5 text-sm">
+                                @if ($user->access===1)
+                                <span
+                                class="rounded-full bg-green-200 px-3 py-1 text-xs font-semibold text-green-900">Active</span>
+                               @else
+                              
+                                <span class="rounded-full bg-red-200 px-3 py-1 text-xs font-semibold text-red-900">Inactive</span>
+                           
+                                @endif
+                               
                             </td>
                             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                                 <form method="POST" action="{{ route('admin.toggleAccess', $user->id) }}">

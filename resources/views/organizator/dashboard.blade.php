@@ -22,33 +22,37 @@
             New
             Event</a>
     </div>
-    <div class="m-14 grid md:grid-cols-2 grid-cols-1">
+    <div class="m-14 grid md:grid-cols-2 grid-cols-1 gap-8">
         @forelse  ($events as $event)
-            <div class="max-w-sm w-full lg:max-w-full lg:flex">
-                <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-                    style="background-image: url('{{ asset('storage/uploads/' . $event->image) }}')" title="Event Image">
-                </div>
-                <div
-                    class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-                    <div class="mb-8">
+            <div
+                class=" bg-white group mx-2 mt-10 grid max-w-screen-lg grid-cols-2 space-x-8 overflow-hidden rounded-lg border text-gray-700 shadow transition hover:shadow-lg sm:mx-auto sm:grid-cols-5">
+                <a href="#" class="col-span-2 text-left text-gray-600 hover:text-gray-700">
+                    <div class="group relative h-full w-full overflow-hidden"><img
+                            src="{{ asset('storage/uploads/' . $event->image) }}" alt=""
+                            class="h-full w-full border-none object-cover text-gray-700 transition group-hover:scale-125" />
 
+                        <span
+                            class="absolute top-2 left-2 rounded-full bg-yellow-200 px-2 text-xs font-semibold text-yellow-600">{{ $event->category->name }}</span>
+                        <img src="/images/AnbWyIjnwNbW9Wz6c_cja.svg"
+                            class="absolute inset-1/2 w-10 max-w-full -translate-x-1/2 -translate-y-1/2 transition group-hover:scale-125"
+                            alt="" />
+                    </div>
+                </a>
+                <div class="col-span-3 flex flex-col space-y-3 pr-8 text-left">
+                    <a href="#" class="mt-3 overflow-hidden text-2xl font-semibold"> {{ $event->title }} </a>
+                    <p class="overflow-hidden text-sm">
+                        {{ substr($event->description, 0, 100) }}{{ strlen($event->description) > 100 ? '...' : '' }}</p>
+                    <a href="#"
+                        class="text-sm font-semibold text-gray-500 hover:text-gray-700">{{ \Carbon\Carbon::parse($event->date)->format('m/d/Y') }}</a>
 
-                        <div class="text-gray-900 font-bold text-xl mb-2">{{ $event->title }}</div>
-                        <div class="flex gap-2 text-gray-500 font-semibold">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                style="fill: rgba(107, 114, 128, 1)
-                                ;transform: ;msFilter:;">
-                                <path
-                                    d="M21 20V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2zM9 18H7v-2h2v2zm0-4H7v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm2-5H5V7h14v2z">
-                                </path>
-                            </svg>
-                            <span class="pb-1">{{ \Carbon\Carbon::parse($event->date)->format('m/d/Y') }}</span>
+                    <div class="flex flex-col text-gray-700 sm:flex-row">
+                        <div class="flex h-fit space-x-2 text-sm font-medium">
+                            <div class="rounded-full bg-green-100 px-2 py-0.5 text-green-700">{{ $event->status }}</div>
+
+                            <div class="rounded-full bg-red-100 px-2 py-0.5 text-red-700">Tickets from
+                                $<span>{{ $event->price }}</div>
 
                         </div>
-                        <div>
-                            <span class="text-red-600 font-bold">Tickets from $<span>{{ $event->price }}</span></span>
-                        </div>
-                        <p class="text-gray-700 text-base">{{ $event->description }}</p>
                     </div>
                     <div class="flex items-center justify-between ">
                         <a href="{{ route('organizator.readevent', $event->id) }}"
@@ -86,13 +90,14 @@
                             </button>
                         </a>
                     </div>
-                </div>
+                
+            </div>
+    </div>
+@empty
+    <div class="p-6">
+        <p class="text-gray-600">No events available.</p>
+    </div>
+    @endforelse
 
-            </div>
-        @empty
-            <div class="p-6">
-                <p class="text-gray-600">No events available.</p>
-            </div>
-        @endforelse
     </div>
 @endsection

@@ -89,37 +89,38 @@
                     @guest
                     <li>
                         <a href="#" type="button"
-                            class="text-gray-700 font-bold  font-serif focus:outline-none  text-sm px-6 py-2.5 text-center">Home</a>
+                            class="text-gray-400 font-bold  hover:bg-rose hover:text-white font-serif focus:outline-none  text-sm px-6 py-2.5 text-center">Home</a>
 
                     </li>    
                     @endguest
                     @organizator
                     <li>
                         <a href="{{ route('organizator.Reservation') }}" type="button"
-                            class="text-gray-700 font-bold font-serif focus:outline-none text-sm px-6 py-2.5 text-center">Reservation</a>
+                            class="text-gray-500 font-bold hover:bg-rose hover:text-white font-serif  rounded-lg focus:outline-none text-sm px-6 py-2.5 text-center">Reservation</a>
                     </li>    
                 @endorganizator
                     @admin
                     <li>
+                        <a href="{{ route('admin.stats') }}" type="button"
+                            class="text-gray-500 font-bold  hover:bg-rose hover:text-white font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">Dashboard</a>
+
+                    </li>
+                    <li>
                         <a href="{{ route("admin.admindashboard") }}" type="button"
-                            class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">All Users</a>
+                            class="text-gray-500 font-bold  hover:bg-rose hover:text-white font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">Users</a>
 
                     </li>
                     <li>
                         <a href="{{ route("admin.categories") }}" type="button"
-                            class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">All categories</a>
+                            class="text-gray-500 font-bold  hover:bg-rose hover:text-white font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">Categories</a>
 
                     </li>
                     <li>
                         <a href="{{ route('admin.events') }}" type="button"
-                            class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">All events</a>
+                            class="text-gray-500 font-bold  hover:bg-rose hover:text-white font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">Events</a>
 
                     </li>
-                    <li>
-                        <a href="{{ route('admin.stats') }}" type="button"
-                            class="text-bleuc font-bold  hover:bg-bleu hover:text-bleuc font-serif  focus:outline-none   rounded-full text-sm px-6 py-2.5 text-center">stats</a>
-
-                    </li>
+                  
 
                     @endadmin 
                   

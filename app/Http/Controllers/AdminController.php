@@ -11,7 +11,7 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index()  
     {
         $users = User::where('role', 'user')->get();
         return view('admin.dashboard', compact('users'));
@@ -30,9 +30,13 @@ class AdminController extends Controller
     
     public function validateEvent(Event $event)
     {
-        $event->status = 'accepted';
+        if ($event->status === 'accepted') {
+            $event->status = 'rejected';
+        } else {
+            $event->status = 'accepted';
+        }
+    
         $event->save();
-
         return back()->with('success', 'Event validated successfully.');
     }
 

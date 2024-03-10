@@ -17,7 +17,14 @@
         </div>
     @endif
 
-    <div>
+    <div class="m-10 ">
+        @if ($reservations->isEmpty())
+        <tr>
+            <td colspan="4" class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">
+                No reservations available.
+            </td>
+        </tr>
+    @else
         <div class="flex flex-col mt-8 mx-10">
             <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
                 <div
@@ -41,51 +48,46 @@
                         </thead>
 
                         <tbody class="bg-white">
-                            @foreach ($reservations as $reservation)
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="flex items-center">
-                                            <div class="ml-4">
-                                                <div class="text-sm leading-5 font-medium text-gray-900">{{ $reservation->event->title }}
+                          
+                                @foreach ($reservations as $reservation)
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="flex items-center">
+                                                <div class="ml-4">
+                                                    <div class="text-sm leading-5 font-medium text-gray-900">{{ $reservation->event->title }}</div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="flex items-center">
-                                            <div class="ml-4">
-                                                <div class="text-sm leading-5 text-gray-500">{{ $reservation->user->name }}</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="flex items-center">
-                                            <div class="ml-4">
-                                                <div class="text-sm leading-5 text-gray-500">{{ $reservation->user->email }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="flex items-center">
+                                                <div class="ml-4">
+                                                    <div class="text-sm leading-5 text-gray-500">{{ $reservation->user->name }}</div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <form method="POST" action="{{ route('organizator.confirmReservation',$reservation->id  ) }}">
-                                            @method('PATCH')
-                                            @csrf
-                                            @if ($reservation->status == 'confirmed')
-                                            <p type="submit"
-                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">confirmed</p>
-                                    
-                                            @elseif($reservation->status == 'pending')
-
-                                            <button type="submit"
-                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">confirme</button>
-                                  
-                                       @endif
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="flex items-center">
+                                                <div class="ml-4">
+                                                    <div class="text-sm leading-5 text-gray-500">{{ $reservation->user->email }}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            <form method="POST" action="{{ route('organizator.confirmReservation',$reservation->id) }}">
+                                                @method('PATCH')
+                                                @csrf
+                                                @if ($reservation->status == 'confirmed')
+                                                    <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">confirmed</p>
+                                                @elseif($reservation->status == 'pending')
+                                                    <button type="submit" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">confirme</button>
+                                                @endif
                                             </form>
-                                    </td>
-
-                                </tr>
-                            @endforeach
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
+                        
                     </table>
                 </div>
             </div>

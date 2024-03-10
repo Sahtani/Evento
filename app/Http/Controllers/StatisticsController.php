@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Event;
 use App\Models\Reservation;
 use App\Models\User;
@@ -16,11 +17,23 @@ class StatisticsController extends Controller
     public function index()
     {
         $active_Users= User::where('access', 1)->where('role','user')->count();
+        $unactive_Users= User::where('access', 0)->where('role','user')->count();
+        $organizatros= User::where('access', 1)->where('role','organizator')->count();
+        $categories= Category::count();
         $events = Event::count();
         $Reservation = Reservation::count();
-        return view('admin.stats',compact('active_Users','events','Reservation'));
+        return view('admin.stats',compact('active_Users','events','Reservation','organizatros','categories','unactive_Users'));
     }
-
+    public function stats()
+    {
+        // $active_Users= User::where('access', 1)->where('role','user')->count();
+        // $unactive_Users= User::where('access', 0)->where('role','user')->count();
+        // $organizatros= User::where('access', 1)->where('role','organizator')->count();
+        // $categories= Category::count();
+        // $events = Event::count();
+        // $Reservation = Reservation::count();
+        return view('organizator.stats');
+    }
     /**
      * Show the form for creating a new resource.
      */
