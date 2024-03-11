@@ -12,14 +12,11 @@
             </svg>
           </div>
           <div class="pt-1 text-right">
-            <p class="text-sm font-light capitalize">Pageviews</p>
-            <h4 class="text-2xl font-semibold tracking-tighter xl:text-2xl">14,000</h4>
+            <p class="text-sm font-light capitalize">Total Reservations</p>
+            <h4 class="text-2xl font-semibold tracking-tighter xl:text-2xl">{{ $totalReservations }}</h4>
           </div>
         </div>
-        <hr class="opacity-50" />
-        <div class="p-4">
-          <p class="font-light"><span class="text-sm font-bold text-green-600">+22% </span>vs last month</p>
-        </div>
+       
       </div>
     </div>
     <div class="flex w-72">
@@ -31,13 +28,9 @@
             </svg>
           </div>
           <div class="pt-1 text-right">
-            <p class="text-sm font-light capitalize">Users</p>
-            <h4 class="text-2xl font-semibold tracking-tighter xl:text-2xl">2,300</h4>
+            <p class="text-sm font-light capitalize">Pending Reservations</p>
+            <h4 class="text-2xl font-semibold tracking-tighter xl:text-2xl">{{ $pendingReservations }}</h4>
           </div>
-        </div>
-        <hr class="opacity-50" />
-        <div class="p-4">
-          <p class="font-light"><span class="text-sm font-bold text-green-600">+3% </span>vs last month</p>
         </div>
       </div>
     </div>
@@ -50,13 +43,9 @@
             </svg>
           </div>
           <div class="pt-1 text-right">
-            <p class="text-sm font-light capitalize">Sales</p>
-            <h4 class="text-2xl font-semibold tracking-tighter xl:text-2xl">$5,360</h4>
+            <p class="text-sm font-light capitalize">confirmed Reservations</p>
+            <h4 class="text-2xl font-semibold tracking-tighter xl:text-2xl">{{ $confirmedReservations }}</h4>
           </div>
-        </div>
-        <hr class="opacity-50" />
-        <div class="p-4">
-          <p class="font-light"><span class="text-sm font-bold text-red-600">-3% </span>vs last month</p>
         </div>
       </div>
     </div>

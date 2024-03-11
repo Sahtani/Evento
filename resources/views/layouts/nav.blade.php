@@ -95,9 +95,14 @@
                     @endguest
                     @organizator
                     <li>
+                        <a href="{{ route('organizator.organdashboard') }}" type="button"
+                            class="text-gray-500 font-bold hover:bg-rose hover:text-white font-serif  rounded-lg focus:outline-none text-sm px-6 py-2.5 text-center">My events</a>
+                    </li>    
+                    <li>
                         <a href="{{ route('organizator.Reservation') }}" type="button"
                             class="text-gray-500 font-bold hover:bg-rose hover:text-white font-serif  rounded-lg focus:outline-none text-sm px-6 py-2.5 text-center">Reservation</a>
                     </li>    
+                   
                 @endorganizator
                     @admin
                     <li>

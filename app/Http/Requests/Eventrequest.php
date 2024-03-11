@@ -24,7 +24,7 @@ class Eventrequest extends FormRequest
             return [
                 'image' => 'required',
                 'title' => 'required|string|max:255',
-                'date' => 'required|date',
+                'date' => 'required|date|after:today',
                 'location' => 'required|string|max:255',
                 'nbr' => 'required|numeric|min:1',
                 'price' => 'required|numeric|min:1',

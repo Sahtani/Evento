@@ -51,19 +51,25 @@ class ReservationController extends Controller
     }
     public function Reservation()
     {
-        $reservations=Reservation::where('status','pending')->paginate(6);
+        $reservations=Reservation::all();
        
         return view('organizator.reservation',compact('reservations'));
     }
     public function confirmReservation($id)
     {
         $reservation = Reservation::findOrFail($id); 
-        $reservation->update(['status' => 'confirmed']); 
-        $reservation->event->nbr-=1;
+        $status=$reservation->status;
+      if ($status === 'confirmed') {
+        $reservation->update(['status' => 'confirmed']);
+        $reservation->event->nbr -= 1;
         $reservation->event->save();
-
         return redirect()->back()->with('success', 'Reservation confirmed successfully');
-    }
+    } elseif ($status === 'rejected') {
+        $reservation->update(['status' => 'rejected']);
+        return redirect()->back()->with('success', 'Reservation rejected successfully');
+    } else {
+        return redirect()->back()->with('error', 'Invalid action');
+    } }
     public function ticket($id)
     {
         $reservation = Reservation::findOrFail($id); 

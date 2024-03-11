@@ -54,7 +54,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/updatevent/{id}',[EventController::class,'update'])->name('updatevent');
         Route::get('/Reservation',[ReservationController::class,'Reservation'])->name('Reservation');
         Route::patch('/confirmReservation/{id}',[ReservationController::class,'confirmReservation'])->name('confirmReservation');
-        Route::get('/stats',[StatisticsController::class,'stats'])->name('stats');
+        Route::get('/stats',[StatisticsController::class,'Organistats'])->name('stats');
     });
 });
 

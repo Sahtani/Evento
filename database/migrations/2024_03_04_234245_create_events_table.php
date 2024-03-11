@@ -26,7 +26,8 @@ return new class extends Migration
             $table->integer('price');
             $table->enum('mode', ['automatic', 'manual'])->default('automatic');
             $table->timestamps();
-    });}
+        });
+    }
 
     /**
      * Reverse the migrations.
