@@ -57,9 +57,9 @@ class ReservationController extends Controller
 
         $reservations = Reservation::whereIn('event_id', $events)->where('status', 'pending')->get();
 
-        $totalReservations = Reservation::count();
-        $confirmedReservations = Reservation::where('status', 'confirmed')->count();
-        $pendingReservations = Reservation::where('status', 'pending')->count();
+        $totalReservations = Reservation::where('user_id', $organizerId)->count();
+        $confirmedReservations = Reservation::where('user_id', $organizerId)->where('status', 'confirmed')->count();
+        $pendingReservations = Reservation::where('user_id', $organizerId)->where('status', 'pending')->count();
 
         return view('organizator.reservation', compact('reservations', 'totalReservations', 'confirmedReservations', 'pendingReservations'));
     }

@@ -57,17 +57,17 @@
             </div>
         </form>
 
-        <form class="max-w-sm mx-auto mt-2" action="{{ route('user.filtrer') }}" method="GET">
+        <form class="max-w-sm mx-auto mt-2"  action="{{ route('user.filtrer') }}" method="GET">
             <div class="flex">
-                <select id="categories" name="category"
+                <select id="categories" name="category" onchange="this.form.submit()"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option selected disabled hidden>Filter By Category</option>
                     @foreach ($categories as $categorie)
                         <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
                     @endforeach
                 </select>
-                <button type="submit"
-                    class="text-white bottom-2.5 bg-blue-700  focus:outline-none  font-medium rounded-lg text-sm px-4 py-1 ">Filter</button>
+                {{-- <button type="submit"
+                    class="text-white bottom-2.5 bg-blue-700  focus:outline-none  font-medium rounded-lg text-sm px-4 py-1 ">Filter</button> --}}
 
             </div>
         </form>
@@ -122,7 +122,7 @@
                                 <button type="submit"
                                     class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 font-semibold">
                                     <div class="flex gap-3">
-                                        <span>Réserver</span>
+                                        <span>Reserve</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" style="fill: rgba(247, 241, 241, 1);transform: ;msFilter:;">
                                             <path
@@ -165,7 +165,7 @@
                                     class="mt-4 inline-block text-blue-600 text-sm hover:underline">
                                     @csrf
                                     <button type="submit"
-                                        class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 font-semibold">
+                                        class="text-white bg-red-800 hover:bg-red-900 font-medium rounded-lg text-sm px-5 py-2  focus:outline-none  font-semibold">
                                         <div class="flex gap-3">
                                             <span>Reserve</span>
                                         </div>

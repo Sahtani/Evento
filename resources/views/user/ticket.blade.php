@@ -37,7 +37,7 @@
                             </th>
                 
                             <td class="px-6 py-4">
-                                {{ $reservation->event->created_at->format('M d, Y') }}
+                                {{ $reservation->created_at->format('M d, Y') }}
                             </td>
 
                         </tr>

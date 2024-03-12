@@ -37,7 +37,7 @@ class AdminController extends Controller
         }
     
         $event->save();
-        return back()->with('success', 'Event validated successfully.');
+        return back()->with('success', 'Event confirmed successfully.');
     }
 
     /**
