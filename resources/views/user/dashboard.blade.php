@@ -31,47 +31,48 @@
             </div>
         </div>
     @endif
-    <div >
-
-  
-    {{-- search event by title --}}
-    <form class="max-w-md mx-auto  focus:outline-none mt-10" action="{{ route('user.search') }}" method="GET">
-        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-        <div class="relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                    fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+    <div>
 
 
-                </svg>
+        {{-- search event by title --}}
+        <form class="max-w-md mx-auto  focus:outline-none mt-10" action="{{ route('user.search') }}" method="GET">
+            <label for="default-search"
+                class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+
+
+                    </svg>
+                </div>
+                <input type="search" id="searchInput" name="title"
+                    class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 "
+                    placeholder="Search ..." required />
+
+                <button type="submit"
+                    class="text-white absolute end-2.5 bottom-2.5 bg-blue-700  focus:outline-none  font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
             </div>
-            <input type="search" id="searchInput" name="title"
-                class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 "
-                placeholder="Search ..." required />
-
-            <button type="submit"
-                class="text-white absolute end-2.5 bottom-2.5 bg-blue-700  focus:outline-none  font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
-        </div>
-    </form>
-
-    <form class="max-w-sm mx-auto" action="{{ route('user.filtrer') }}" method="GET">
-<div class="flex">
-    <select id="categories" name="category"
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-    <option selected disabled hidden>Filter By Category</option>
-    @foreach ($categories as $categorie)
-        <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
-    @endforeach
-</select>
-<button type="submit"
-    class="text-white bottom-2.5 bg-blue-700  focus:outline-none  font-medium rounded-lg text-sm px-4 py-2 ">Filter</button>
-
-</div>
         </form>
 
-</div>
+        <form class="max-w-sm mx-auto mt-2" action="{{ route('user.filtrer') }}" method="GET">
+            <div class="flex">
+                <select id="categories" name="category"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected disabled hidden>Filter By Category</option>
+                    @foreach ($categories as $categorie)
+                        <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
+                    @endforeach
+                </select>
+                <button type="submit"
+                    class="text-white bottom-2.5 bg-blue-700  focus:outline-none  font-medium rounded-lg text-sm px-4 py-1 ">Filter</button>
+
+            </div>
+        </form>
+
+    </div>
     <div class=" m-14 grid md:grid-cols-2 grid-cols-1 gap-4" id="events-list">
         @foreach ($events as $event)
             <div class="entreprise-card relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-2xl mx-auto border border-white bg-white"
@@ -96,7 +97,7 @@
                             {{ $event->category ? $event->category->name : 'original' }}</div>
                     </div>
                     <h3 class="font-black text-gray-800 md:text-3xl text-xl">{{ $event->title }}</h3>
-                   
+
                     <p class="text-xl font-black text-red-700">
                         ${{ $event->price }}
                     </p>
@@ -108,20 +109,25 @@
                             </path>
                         </svg>
                         <span
-                            class="font-bold text-gray-400 text-base">{{ \Carbon\Carbon::parse($event->date)->format('m/d/Y') }}</span>
+                            class="font-bold text-gray-400 text-base">{{ $event->created_at->format('M d, Y') }}</span>
                         </p>
                     </div>
                     <div class="flex items-center justify-between ">
                         <a href="{{ route('user.readEventUser', $event->id) }}" class="text-blue-500 hover:underline">Read
                             more</a>
-                            @if ($event->resevations->isEmpty())
-                            <form action="{{ route('user.reserve', $event->id) }}" method="POST" class="mt-4 inline-block text-blue-600 text-sm hover:underline">
+                        @if ($event->resevations->isEmpty())
+                            <form action="{{ route('user.reserve', $event->id) }}" method="POST"
+                                class="mt-4 inline-block text-blue-600 text-sm hover:underline">
                                 @csrf
-                                <button type="submit" class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 font-semibold">
+                                <button type="submit"
+                                    class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 font-semibold">
                                     <div class="flex gap-3">
                                         <span>Réserver</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(247, 241, 241, 1);transform: ;msFilter:;">
-                                            <path d="M3 5v14c0 2.201 1.794 3 3 3h15v-2H6.012C5.55 19.988 5 19.806 5 19s.55-.988 1.012-1H21V4c0-1.103-.897-2-2-2H6c-1.206 0-3 .799-3 3z"></path>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" style="fill: rgba(247, 241, 241, 1);transform: ;msFilter:;">
+                                            <path
+                                                d="M3 5v14c0 2.201 1.794 3 3 3h15v-2H6.012C5.55 19.988 5 19.806 5 19s.55-.988 1.012-1H21V4c0-1.103-.897-2-2-2H6c-1.206 0-3 .799-3 3z">
+                                            </path>
                                         </svg>
                                     </div>
                                 </button>
@@ -132,32 +138,36 @@
                             @endphp
                             @if ($userReservation)
                                 @if ($userReservation->status === 'confirmed')
-                                    <a href="{{ route('user.ticket', $userReservation->id) }}" class="text-white bg-roseb font-medium rounded-lg text-sm px-5 py-2 focus:outline-none font-semibold">
-                                        <div class="flex gap-1">
+                                    <a href="{{ route('user.downloadTicket', $userReservation->id) }}"
+                                        class="text-white bg-roseb font-medium rounded-lg text-sm px-5 py-2 focus:outline-none font-semibold">
+                                        <div class="flex gap-2">
                                             <span>Ticket</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="pb-1 viewBox="0 0 24 24" style="fill: rgba(245, 238, 238, 1);transform: ;msFilter:;">
-                                                <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"></path>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24"
+                                                style="fill: rgba(255, 245, 245, 1);transform: ;msFilter:;">
+                                                <path d="m12 16 4-5h-3V4h-2v7H8z"></path>
+                                                <path d="M20 18H4v-7H2v7c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-7h-2v7z">
+                                                </path>
                                             </svg>
                                         </div>
                                     </a>
                                 @elseif ($userReservation->status === 'pending')
-                            
-                                    <button class="flex mt-1 ml-auto w-fit items-center rounded-full bg-blue-600 py-2 px-3 text-left text-xs font-medium text-white">
+                                    <button
+                                        class="flex mt-1 ml-auto w-fit items-center rounded-full bg-blue-600 py-2 px-3 text-left text-xs font-medium text-white">
                                         Pending
                                     </button>
                                 @elseif ($userReservation->status === 'cancelled')
-                                   
-            <div class="inline-flex items-center rounded-full bg-red-200 py-1 px-2 text-red-500">Canceled</div>
+                                    <div class="inline-flex items-center rounded-full bg-red-200 py-1 px-2 text-red-500">
+                                        Canceled</div>
                                 @endif
                             @else
-                                <form action="{{ route('user.reserve', $event->id) }}" method="POST" class="mt-4 inline-block text-blue-600 text-sm hover:underline">
+                                <form action="{{ route('user.reserve', $event->id) }}" method="POST"
+                                    class="mt-4 inline-block text-blue-600 text-sm hover:underline">
                                     @csrf
-                                    <button type="submit" class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 font-semibold">
+                                    <button type="submit"
+                                        class="text-white bg-red-800 hover:bg-red-900 focus:ring-4 font-medium rounded-lg text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 font-semibold">
                                         <div class="flex gap-3">
-                                            <span>Réserver</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(247, 241, 241, 1);transform: ;msFilter:;">
-                                                <path d="M3 5v14c0 2.201 1.794 3 3 3h15v-2H6.012C5.55 19.988 5 19.806 5 19s.55-.988 1.012-1H21V4c0-1.103-.897-2-2-2H6c-1.206 0-3 .799-3 3z"></path>
-                                            </svg>
+                                            <span>Reserve</span>
                                         </div>
                                     </button>
                                 </form>
@@ -174,4 +184,3 @@
     </div>
     {{ $events->links() }}
 @endsection
-

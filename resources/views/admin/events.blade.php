@@ -50,7 +50,7 @@
                                     <p class="whitespace-no-wrap">{{ $event->location }}</p>
                                 </td>
                                 <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                                    <p class="whitespace-no-wrap">{{ $event->category->name }}</p>
+                                    <p class="whitespace-no-wrap"> {{ $event->category ? $event->category->name : 'original' }}</p>
 
                                 </td>
                                 <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Reservation;
+
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -46,38 +48,47 @@ class ReservationController extends Controller
             $reservation->save();
             return redirect()->route('user.userdash')->with('success', 'Your reservation will be processed soon.');
         }
-
-       
     }
     public function Reservation()
     {
-        $reservations=Reservation::all();
-       
-        return view('organizator.reservation',compact('reservations'));
+        $organizerId = Auth::id();
+
+        $events = Event::where('user_id', $organizerId)->pluck('id');
+
+        $reservations = Reservation::whereIn('event_id', $events)->where('status', 'pending')->get();
+
+        $totalReservations = Reservation::count();
+        $confirmedReservations = Reservation::where('status', 'confirmed')->count();
+        $pendingReservations = Reservation::where('status', 'pending')->count();
+
+        return view('organizator.reservation', compact('reservations', 'totalReservations', 'confirmedReservations', 'pendingReservations'));
     }
     public function confirmReservation($id)
     {
-        $reservation = Reservation::findOrFail($id); 
-        $status=$reservation->status;
-      if ($status === 'confirmed') {
+        $reservation = Reservation::findOrFail($id);
         $reservation->update(['status' => 'confirmed']);
         $reservation->event->nbr -= 1;
         $reservation->event->save();
+
         return redirect()->back()->with('success', 'Reservation confirmed successfully');
-    } elseif ($status === 'rejected') {
-        $reservation->update(['status' => 'rejected']);
-        return redirect()->back()->with('success', 'Reservation rejected successfully');
-    } else {
-        return redirect()->back()->with('error', 'Invalid action');
-    } }
+    }
+
     public function ticket($id)
     {
-        $reservation = Reservation::findOrFail($id); 
-        // $reservation->update(['status' => 'confirmed']); 
+        $reservation = Reservation::findOrFail($id);
 
-        return  view('user.ticket',compact('reservation'));
-       
+        return  view('user.ticket', compact('reservation'));
     }
+    public function downloadTicket($id)
+    {
+        $reservation = Reservation::findOrFail($id);
+        $pdf = PDF::loadView('user.ticket', compact('reservation'));
+
+        // Télécharger le fichier PDF
+        return $pdf->download('ticket_' . $reservation->id . '.pdf');
+    }
+
+
     /**
      * Show the form for creating a new resource.   
      */

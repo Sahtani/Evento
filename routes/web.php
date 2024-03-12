@@ -7,7 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\StatisticsController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\InvoiceController;
 
 
 
@@ -29,7 +29,7 @@ Route::get("/", function() {
 })->name("home")->middleware('checkRole');
 
 // user routes
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','user'])->group(function () {
     Route::prefix('user')->name('user.')->group(function () {
         Route::get('/dashboard', [EventController::class,'showEvent'])->name('userdash');
         Route::get('/readEventUser/{id}',[EventController::class,'showForUser'])->name('readEventUser');
@@ -37,12 +37,17 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/ticket/{id}',[ReservationController::class,'ticket'])->name('ticket');
         Route::get('/search', [EventController::class, 'search'])->name('search');
         Route::get('/filtrer', [EventController::class, 'filterByCategory'])->name('filtrer');
+        Route::get('/downloadTicket/{id}', [ReservationController::class, 'downloadTicket'])->name('downloadTicket');
+
     });
 });
 
+
+
+
 // organizator routes
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','organizator'])->group(function () {
     Route::prefix('organizator')->name('organizator.')->group(function () {
         Route::get('/organdashboard',[EventController::class, 'index'])->name('organdashboard');
 
@@ -61,7 +66,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 // admin routes
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','admin'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/admindashboard',[AdminController::class,'index'])->name('admindashboard');
         Route::patch('/toggleAccess/{user}',[AdminController::class,'toggleAccess'])->name('toggleAccess');

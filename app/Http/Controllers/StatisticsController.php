@@ -24,14 +24,7 @@ class StatisticsController extends Controller
         $Reservation = Reservation::count();
         return view('admin.stats',compact('active_Users','events','Reservation','organizatros','categories','unactive_Users'));
     }
-    public function Organistats()
-    {
-        $totalReservations = Reservation::count();
-        $confirmedReservations = Reservation::where('status', 'confirmed')->count();
-        $pendingReservations = Reservation::where('status', 'pending')->count();
-    
-        return view('organizator.stats',compact('totalReservations', 'confirmedReservations', 'pendingReservations'));
-    }
+
    
     /**
      * Show the form for creating a new resource.

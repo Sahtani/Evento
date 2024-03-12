@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckBanStatus
+class Organizator
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,13 @@ class CheckBanStatus
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->access=1) {
-            return redirect()->route('home')->with('error', 'Your account has been banned.');
+        if ($request->user() && $request->user()->role === 'organizator') {
+            return $next($request);
+        }elseif($request->user()->role === 'admin'){
+            return redirect()->route('admin.stats');
+        }else{
+            return redirect()->route('user.userdash');
         }
 
-        return $next($request);
     }
 }

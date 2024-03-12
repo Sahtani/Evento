@@ -99,7 +99,7 @@
             </div>
         @empty
             <div class="p-6">
-                <p class="text-gray-600">No events available.</p>
+                <p class="text-gray-600 ">No events available.</p>
             </div>
         @endforelse
 
